@@ -14,6 +14,7 @@ export class WorkoutRunnerComponent implements OnInit {
   currentExerciseIndex: number;
   currentExercise: ExercisePlan;
   exerciseRunningDuration: number;
+  exerciseTrackingInterval: number;
 
   constructor() { }
 
@@ -28,9 +29,13 @@ export class WorkoutRunnerComponent implements OnInit {
     this.currentExercise = exercisePlan;
     this.exerciseRunningDuration = 0;
 
-    const intervalId = setInterval(() => {
+    this.startExerciseTimeTracking();
+  }
+
+  startExerciseTimeTracking() {
+    this.exerciseTrackingInterval = window.setInterval(() => {
       if (this.exerciseRunningDuration >= this.currentExercise.duration) {
-        clearInterval(intervalId);
+        clearInterval(this.exerciseTrackingInterval);
 
         const next: ExercisePlan = this.getNextExercise();
 
@@ -43,9 +48,12 @@ export class WorkoutRunnerComponent implements OnInit {
         } else {
           console.log('Workout complete!');
         }
-      } else {
-        this.exerciseRunningDuration++;
+
+        return;
       }
+
+      ++this.exerciseRunningDuration;
+      --this.workoutTimeRemaining;
     }, 1000);
   }
 
