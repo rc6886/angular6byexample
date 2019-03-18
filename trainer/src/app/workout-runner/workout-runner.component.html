@@ -1,5 +1,13 @@
 <div class="row pt-4">
-  <div id="exercise-pane" class="col-sm">
+  <div id="description-panel" class="col-sm-3">
+    <abe-exercise-description
+      [description]="currentExercise.exercise.description"
+      [steps]="currentExercise.exercise.procedure"
+    >
+    </abe-exercise-description>
+  </div>
+
+  <div id="exercise-pane" class="col-sm-6">
     <h1 class="text-center">{{currentExercise.exercise.title}}</h1>
     <div class="image-container row">
       <img class="img-fluid col-sm" style="max-width: 100%; max-height: 100%;" [src]="'/assets/images/' + currentExercise.exercise.image" />
@@ -10,5 +18,9 @@
       </div>
     </div>
     <h1>Time Remaining: {{currentExercise.duration-exerciseRunningDuration}}</h1>
+  </div>
+
+  <div id="video-panel" class="col-sm-3">
+    <abe-video-player [videos]="currentExercise.exercise.videos"></abe-video-player>
   </div>
 </div>
